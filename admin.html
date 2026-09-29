@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin ♡</title>
+  <title>Admin ♡ babyfinch</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
@@ -12,7 +12,6 @@
       --bg-color: #fff4f6;
       --card-bg: #ffffff;
       --primary-pink: #ee8399;
-      --primary-pink-hover: #e37189;
       --border-color: #f7d5de;
       --text-main: #4a3e3d;
       --text-muted: #968688;
@@ -40,7 +39,6 @@
       max-width: 420px;
     }
 
-    /* --- LOGIN VIEW --- */
     #loginView {
       display: flex;
       flex-direction: column;
@@ -90,7 +88,6 @@
       font-size: 14px;
       color: var(--text-main);
       outline: none;
-      transition: all 0.2s;
       background: #fff;
     }
 
@@ -107,7 +104,6 @@
       font-size: 14px;
       color: var(--text-main);
       outline: none;
-      transition: all 0.2s;
       resize: vertical;
       background: #fff;
     }
@@ -120,7 +116,6 @@
     .btn-pink {
       width: 100%;
       height: 48px;
-      background: linear-space;
       background: linear-gradient(135deg, #f29bb0, var(--primary-pink));
       color: white;
       border: none;
@@ -145,7 +140,6 @@
       display: none;
     }
 
-    /* --- DASHBOARD VIEW --- */
     #dashboardView {
       display: none;
     }
@@ -191,7 +185,6 @@
       margin-top: 4px;
     }
 
-    /* Stat Cards */
     .stats-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -231,7 +224,6 @@
       margin-top: 2px;
     }
 
-    /* Section Headers */
     .section-title {
       font-size: 16px;
       font-weight: 700;
@@ -242,7 +234,6 @@
       gap: 6px;
     }
 
-    /* Form Panels */
     .panel-card {
       background: var(--card-bg);
       border-radius: 28px;
@@ -260,7 +251,6 @@
       gap: 6px;
     }
 
-    /* Upload Box */
     .upload-area {
       border: 1.5px dashed var(--border-color);
       border-radius: 20px;
@@ -301,7 +291,6 @@
       border: 2px solid var(--primary-pink);
     }
 
-    /* Reviews List */
     .review-card {
       background: var(--card-bg);
       border-radius: 20px;
@@ -361,7 +350,7 @@
 
   <div class="container">
 
-    <!-- 1. LOGIN VIEW -->
+    <!-- LOGIN VIEW -->
     <div id="loginView">
       <div class="login-card">
         <div class="bow-icon">🎀</div>
@@ -370,7 +359,7 @@
         <form onsubmit="handleLogin(event)">
           <div class="form-group">
             <label>Email</label>
-            <input type="email" id="loginEmail" class="input-pill" placeholder="admin@babyselris.com" required>
+            <input type="email" id="loginEmail" class="input-pill" placeholder="ancharee09605@gmail.com" required>
           </div>
           
           <div class="form-group">
@@ -384,22 +373,19 @@
       </div>
     </div>
 
-    <!-- 2. DASHBOARD VIEW -->
+    <!-- DASHBOARD VIEW -->
     <div id="dashboardView">
       
-      <!-- Top Nav -->
       <div class="top-nav">
         <div class="nav-title">Admin ♡</div>
         <button class="logout-btn" onclick="handleLogout()">Log Out</button>
       </div>
 
-      <!-- Welcome -->
       <div class="welcome-header">
         <h2 class="welcome-title">Welcome Admin ♡</h2>
         <p class="welcome-sub">manage your reviews and website profile</p>
       </div>
 
-      <!-- Stats -->
       <div class="stats-row">
         <div class="stat-card">
           <div class="stat-icon">💬</div>
@@ -415,8 +401,7 @@
         </div>
       </div>
 
-      <!-- Section: Change Profiles -->
-      <div class="section-title">✏️ Change Profiles</div>
+      <div class="section-title">✏️️ Change Profiles</div>
 
       <!-- Main Page Profile -->
       <div class="panel-card">
@@ -434,7 +419,7 @@
 
         <div class="form-group">
           <label>Name</label>
-          <input type="text" id="mainName" class="input-pill" placeholder="babyselris ♡">
+          <input type="text" id="mainName" class="input-pill" placeholder="babyfinch ♡">
         </div>
 
         <div class="form-group">
@@ -461,12 +446,12 @@
 
         <div class="form-group">
           <label>Name</label>
-          <input type="text" id="contactName" class="input-pill" placeholder="babyselris ♡">
+          <input type="text" id="contactName" class="input-pill" placeholder="babyfinch ♡">
         </div>
 
         <div class="form-group">
           <label>Username</label>
-          <input type="text" id="contactUsername" class="input-pill" placeholder="@username">
+          <input type="text" id="contactUsername" class="input-pill" placeholder="@babyfinch">
         </div>
 
         <div class="form-group">
@@ -476,18 +461,18 @@
 
         <div class="form-group">
           <label>Followers</label>
-          <input type="text" id="contactFollowers" class="input-pill" placeholder="888">
+          <input type="text" id="contactFollowers" class="input-pill" placeholder="0">
         </div>
 
         <div class="form-group">
           <label>Following</label>
-          <input type="text" id="contactFollowing" class="input-pill" placeholder="127">
+          <input type="text" id="contactFollowing" class="input-pill" placeholder="0">
         </div>
 
         <button type="button" class="btn-pink" onclick="saveContactProfile()">Save Contact Profile ♡</button>
       </div>
 
-      <!-- Section: Delete Reviews -->
+      <!-- Delete Reviews -->
       <div class="section-title">🗑️ Delete Reviews</div>
       <div id="reviewsContainer"></div>
 
@@ -499,11 +484,9 @@
     const AUTH_EMAIL = "ancharee09605@gmail.com";
     const AUTH_PASS = "4307";
 
-    // ข้อมูลจำลองตั้งต้น
     const DEFAULT_REVIEWS = [
-      { id: 1, name: "เริ่ดมากค่ะ", stars: 5, comment: "ทดสอบระบบ", time: "รีวิวเมื่อเร็วๆ นี้" },
-      { id: 2, name: "ดีมาก", stars: 5, comment: "ดีมาก", time: "รีวิวเมื่อเร็วๆ นี้" },
-      { id: 3, name: "N", stars: 5, comment: "ดีมากเลยค่ะ ( ทดสอบระบบ )", time: "รีวิวเมื่อเร็วๆ นี้" }
+      { id: 1, name: "คุณมินนี่ 🩰", stars: 5, comment: "สินค้าน่ารักมากกก แพ็กของมาเรียบร้อยค่ะ", time: "รีวิวเมื่อเร็วๆ นี้" },
+      { id: 2, name: "คุณพราว 🎀", stars: 5, comment: "จัดส่งไว แม่ค้าน่ารักตอบแชทเร็วมาก", time: "รีวิวเมื่อเร็วๆ นี้" }
     ];
 
     window.onload = function() {
@@ -540,14 +523,13 @@
       loadSavedProfiles();
     }
 
-    // จัดการข้อมูลรีวิว
     function getReviews() {
-      const stored = localStorage.getItem('boutique_reviews');
+      const stored = localStorage.getItem('babyfinch_reviews');
       return stored ? JSON.parse(stored) : DEFAULT_REVIEWS;
     }
 
     function setReviews(revs) {
-      localStorage.setItem('boutique_reviews', JSON.stringify(revs));
+      localStorage.setItem('babyfinch_reviews', JSON.stringify(revs));
       loadStatsAndReviews();
     }
 
@@ -587,7 +569,6 @@
       }
     }
 
-    // อัปโหลดและพรีวิวรูป
     function previewImage(input, previewId) {
       if (input.files && input.files[0]) {
         const reader = new FileReader();
@@ -600,14 +581,13 @@
       }
     }
 
-    // บันทึกโปรไฟล์
     function saveMainProfile() {
       const data = {
         name: document.getElementById('mainName').value,
         bio: document.getElementById('mainBio').value,
         img: document.getElementById('mainImgPreview').src
       };
-      localStorage.setItem('boutique_main_profile', JSON.stringify(data));
+      localStorage.setItem('babyfinch_main_profile', JSON.stringify(data));
       alert('บันทึก Main Page Profile เรียบร้อยแล้วค่ะ ♡');
     }
 
@@ -620,12 +600,12 @@
         following: document.getElementById('contactFollowing').value,
         img: document.getElementById('contactImgPreview').src
       };
-      localStorage.setItem('boutique_contact_profile', JSON.stringify(data));
+      localStorage.setItem('babyfinch_contact_profile', JSON.stringify(data));
       alert('บันทึก Contact Page Profile เรียบร้อยแล้วค่ะ ♡');
     }
 
     function loadSavedProfiles() {
-      const main = JSON.parse(localStorage.getItem('boutique_main_profile') || '{}');
+      const main = JSON.parse(localStorage.getItem('babyfinch_main_profile') || '{}');
       if (main.name) document.getElementById('mainName').value = main.name;
       if (main.bio) document.getElementById('mainBio').value = main.bio;
       if (main.img) {
@@ -634,7 +614,7 @@
         img.style.display = 'block';
       }
 
-      const contact = JSON.parse(localStorage.getItem('boutique_contact_profile') || '{}');
+      const contact = JSON.parse(localStorage.getItem('babyfinch_contact_profile') || '{}');
       if (contact.name) document.getElementById('contactName').value = contact.name;
       if (contact.username) document.getElementById('contactUsername').value = contact.username;
       if (contact.bio) document.getElementById('contactBio').value = contact.bio;
