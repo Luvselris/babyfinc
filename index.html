@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>babyfinch ' ♡</title>
+  <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink-soft: #fff2f5;
+      --pink-border: #ffd6e0;
+      --pink-accent: #ff9ebb;
+      --pink-deep: #a8586c;
+      --white-pure: #ffffff;
+      --white-lace: rgba(255, 255, 255, 0.88);
+      --shadow-princess: 0 12px 30px rgba(255, 182, 193, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Mitr', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #fff9fb;
+      background-image: 
+        radial-gradient(#ffe5ec 1.5px, transparent 1.5px),
+        radial-gradient(#fff0f3 1.5px, #fff9fb 1.5px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+      color: #634850;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Floating cute icons */
+    .floating-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .float-item {
+      position: absolute;
+      bottom: -40px;
+      font-size: 22px;
+      opacity: 0.75;
+      animation: floatUp 12s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.85;
+      }
+      90% {
+        opacity: 0.85;
+      }
+      100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Music Player Button */
+    .music-btn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 100;
+      background: var(--white-pure);
+      border: 2px solid var(--pink-border);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 158, 187, 0.4);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .music-btn:active {
+      transform: scale(0.9);
+    }
+
+    .music-btn.playing {
+      animation: heartbeat 1.4s infinite;
+      border-color: var(--pink-accent);
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Main Container */
+    .card-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 440px;
+      margin: 20px 14px 40px;
+      background: var(--white-lace);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 36px;
+      border: 3px solid var(--white-pure);
+      box-shadow: var(--shadow-princess), inset 0 0 15px rgba(255, 230, 236, 0.6);
+      padding: 0 0 28px 0;
+      overflow: hidden;
+    }
+
+    /* Header Banner with GIF */
+    .banner-wrapper {
+      position: relative;
+      height: 180px;
+      width: 100%;
+      background: url('https://i.postimg.cc/26YfhPc1/CA378830-D049-4F10-B91D-83E369F619D9.gif') center/cover no-repeat;
+    }
+
+    .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.95));
+    }
+
+    /* Profile Avatar */
+    .profile-area {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: -65px;
+      padding: 0 20px;
+    }
+
+    .profile-img-wrap {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(135deg, #ffffff, #ffe5ec, #ffffff);
+      box-shadow: 0 8px 20px rgba(255, 158, 187, 0.45);
+    }
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 2px solid var(--white-pure);
+    }
+
+    .princess-crown {
+      position: absolute;
+      top: -14px;
+      right: 36px;
+      font-size: 26px;
+      transform: rotate(15deg);
+      filter: drop-shadow(0 2px 4px rgba(255, 182, 193, 0.7));
+    }
+
+    .shop-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--pink-deep);
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .bio-text {
+      text-align: center;
+      font-size: 13.5px;
+      color: #8c6773;
+      margin-top: 4px;
+      line-height: 1.6;
+    }
+
+    /* Navigation Bar */
+    .tab-nav {
+      display: flex;
+      justify-content: space-around;
+      background: rgba(255, 240, 245, 0.7);
+      margin: 20px 18px 18px;
+      padding: 6px;
+      border-radius: 24px;
+      border: 1.5px solid var(--pink-border);
+    }
+
+    .tab-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 9px 0;
+      border-radius: 18px;
+      font-size: 13px;
+      font-weight: 400;
+      color: #9c6c7b;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--white-pure);
+      color: #d84a75;
+      font-weight: 500;
+      box-shadow: 0 3px 10px rgba(255, 182, 193, 0.4);
+    }
+
+    /* Content Pages */
+    .tab-pane {
+      display: none;
+      padding: 6px 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Coquette Card Styling */
+    .coquette-card {
+      background: var(--white-pure);
+      border: 1.5px solid var(--pink-border);
+      border-radius: 22px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 14px rgba(255, 220, 230, 0.4);
+      position: relative;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--pink-deep);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Contact Links */
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 16px;
+      margin-bottom: 10px;
+      border-radius: 18px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      color: #555;
+      background: var(--white-pure);
+      border: 1.5px solid var(--pink-border);
+      transition: all 0.25s;
+      box-shadow: 0 3px 10px rgba(255, 220, 230, 0.3);
+    }
+
+    .contact-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 182, 193, 0.45);
+    }
+
+    .contact-link.line { border-color: #c9eed7; background: #f6fcf8; color: #1c7a3f; }
+    .contact-link.fb { border-color: #d1e5ff; background: #f6faff; color: #205c9e; }
+    .contact-link.ig { border-color: #fed9ce; background: #fff8f6; color: #c44727; }
+
+    /* Review Section */
+    .input-box {
+      width: 100%;
+      border: 1.5px solid var(--pink-border);
+      border-radius: 14px;
+      padding: 11px 14px;
+      font-size: 13px;
+      margin-bottom: 10px;
+      outline: none;
+      background: #fffbfe;
+      color: #5a4049;
+    }
+
+    .input-box:focus {
+      border-color: var(--pink-accent);
+      box-shadow: 0 0 0 3px rgba(255, 158, 187, 0.2);
+    }
+
+    textarea.input-box {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .pink-submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #ff9ebb, #ff7597);
+      color: white;
+      border: none;
+      padding: 11px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(255, 117, 151, 0.35);
+      transition: all 0.2s;
+    }
+
+    .pink-submit-btn:hover {
+      opacity: 0.92;
+      transform: scale(0.99);
+    }
+
+    .review-bubble {
+      background: #fff8fa;
+      border-left: 4px solid var(--pink-accent);
+      padding: 10px 14px;
+      border-radius: 12px;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    .review-user {
+      font-weight: 500;
+      color: var(--pink-deep);
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
+
+    /* Details Rules */
+    .rule-item {
+      display: flex;
+      gap: 10px;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+      color: #634850;
+    }
+
+    .rule-bullet {
+      color: var(--pink-accent);
+      font-size: 15px;
+    }
+
+    /* Thank You Box */
+    .thankyou-box {
+      background: linear-gradient(135deg, #fff2f5, #ffe8ef);
+      border: 1.5px dashed #ffa6be;
+      border-radius: 20px;
+      padding: 16px;
+      text-align: center;
+      margin-top: 14px;
+      font-size: 14px;
+      color: #9c455d;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Cute Items -->
+  <div class="floating-container" id="floatingArea"></div>
+
+  <!-- BGM Audio Player -->
+  <audio id="bgm" loop preload="auto">
+    <source src="https://files.catbox.moe/gqizpa.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Floating Music Toggle -->
+  <button class="music-btn" id="musicToggle" title="เปิด/ปิดเพลง">
+    🎵
+  </button>
+
+  <div class="card-container">
+    
+    <!-- Banner with GIF -->
+    <div class="banner-wrapper">
+      <div class="banner-overlay"></div>
+    </div>
+
+    <!-- Profile Area -->
+    <div class="profile-area">
+      <div class="profile-img-wrap">
+        <span class="princess-crown">👑</span>
+        <img class="profile-img" src="https://i.ibb.co/gZg1bdv9/IMG-3203.jpg" alt="babyfinch profile">
+      </div>
+      <h1 class="shop-title">babyfinch '</h1>
+      <div class="bio-text">
+        welcome to babyfinch ♡݁<br>
+        ขอบคุณที่กดเข้ามาคับ
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('home')">Home 🩰</button>
+      <button class="tab-btn" onclick="switchTab('review')">Review 🎀</button>
+      <button class="tab-btn" onclick="switchTab('contact')">Contact 💌</button>
+      <button class="tab-btn" onclick="switchTab('details')">Details 📜</button>
+    </div>
+
+    <!-- 1. HOME TAB -->
+    <div id="tab-home" class="tab-pane active">
+      <div class="coquette-card" style="text-align: center;">
+        <span style="font-size: 32px;">🪞✨</span>
+        <div style="font-size: 14px; margin-top: 8px; line-height: 1.7; color: #75525c;">
+          ยินดีต้อนรับสู่โลกของ <b>babyfinch '</b><br>
+          ร้านเล็กๆ โทนขาวละมุน อบอุ่นหัวใจ ♡<br>
+          สามารถเลือกดูข้อมูล กฎเกณฑ์ หรือช่องทางติดต่อจากแท็บด้านบนได้เลยนะคะ
+        </div>
+      </div>
+
+      <div class="thankyou-box">
+        ขอบคุณที่มาอุดหนุนค่ะ ありがとう🤍
+      </div>
+    </div>
+
+    <!-- 2. REVIEW TAB -->
+    <div id="tab-review" class="tab-pane">
+      <div class="coquette-card">
+        <div class="card-title"><span>🎀</span> review babyfinch</div>
+        
+        <input type="text" id="reviewerName" class="input-box" placeholder="ชื่อที่ลูกค้าอยากให้แสดงค่ะ">
+        <textarea id="reviewerMsg" class="input-box" placeholder="ตรงนี้เป็นความรู้สึกของลูกค้าค่ะ"></textarea>
+        
+        <button class="pink-submit-btn" onclick="submitReview()">ส่งรีวิวด้วยหัวใจ ♡</button>
+
+        <div id="reviewDisplayArea" style="margin-top: 14px;">
+          <div class="review-bubble">
+            <div class="review-user">🤍 รีวิวจากคุณลูกค้าคนน่ารัก</div>
+            บริการน่ารัก ประทับใจมากเลยค่ะ ไว้จะแวะมาอุดหนุนอีกนะคะ 🍥
+          </div>
+        </div>
+      </div>
+
+      <div class="thankyou-box">
+        ขอบคุณที่มาอุดหนุนค่ะ ありがとう🤍
+      </div>
+    </div>
+
+    <!-- 3. CONTACT TAB -->
+    <div id="tab-contact" class="tab-pane">
+      <div class="coquette-card">
+        <div class="card-title"><span>💌</span> Contact me ♡</div>
+        <p style="font-size: 13px; color: #88626e; margin-bottom: 14px;">
+          ติดต่อสอบถามได้ทางช่องทางนี้เลย ย
+        </p>
+
+        <!-- Line -->
+        <a href="https://lin.ee/wi39T1c" target="_blank" class="contact-link line">
+          <span style="font-size: 20px;">💚</span>
+          <div>
+            <b>Line official Account</b>
+            <div style="font-size: 11px; opacity: 0.8;">@wi39T1c</div>
+          </div>
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/share/19JMDy8bzi/" target="_blank" class="contact-link fb">
+          <span style="font-size: 20px;">🩵</span>
+          <div>
+            <b>Facebook</b>
+            <div style="font-size: 11px; opacity: 0.8;">คลิกเพื่อไปยัง Facebook Profile</div>
+          </div>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/m3uzxe?stkn=eXNjMjk5bnFiN3Y1" target="_blank" class="contact-link ig">
+          <span style="font-size: 20px;">🧡</span>
+          <div>
+            <b>Instagram</b>
+            <div style="font-size: 11px; opacity: 0.8;">@m3uzxe</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="thankyou-box">
+        ขอบคุณที่มาอุดหนุนค่ะ ありがとう🤍
+      </div>
+    </div>
+
+    <!-- 4. DETAILS TAB -->
+    <div id="tab-details" class="tab-pane">
+      <div class="coquette-card">
+        <div class="card-title"><span>📜</span> รายละเอียดและเงื่อนไข</div>
+        
+        <div class="rule-item">
+          <span class="rule-bullet">✦</span>
+          <div><b>เวลาทำการ:</b> open -close ตามเวลาตื่นหรือว่าง</div>
+        </div>
+
+        <div class="rule-item">
+          <span class="rule-bullet">✦</span>
+          <div><b>การตอบกลับ:</b> หากไม่ตอบ ไม่ตอบเกิน 3-5 นาที ทักซ้ำได้เลยค่ะ</div>
+        </div>
+
+        <div class="rule-item">
+          <span class="rule-bullet">✦</span>
+          <div><b>การใช้งาน:</b> ยกเลิกไม่คืนเงินค่ะ</div>
+        </div>
+
+        <div class="rule-item">
+          <span class="rule-bullet">✦</span>
+          <div><b>การชำระเงิน:</b> บัญชีต่างๆที่ส่งไป ชื่อ <u>อัญชรี เบาสูงเนิน</u> เท่านั้นค่ะ</div>
+        </div>
+      </div>
+
+      <div class="thankyou-box">
+        ขอบคุณที่มาอุดหนุนค่ะ ありがとう🤍
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Tab Switching Function
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+
+      event.currentTarget.classList.add('active');
+      document.getElementById('tab-' + tabId).classList.add('active');
+    }
+
+    // Floating Items Spawner
+    const emojis = ['🐰', '🩹', '☁️', '🤍', '🍥'];
+    const container = document.getElementById('floatingArea');
+
+    function createFloatingItem() {
+      const item = document.createElement('div');
+      item.classList.add('float-item');
+      item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      item.style.left = Math.random() * 95 + 'vw';
+      item.style.animationDuration = (8 + Math.random() * 6) + 's';
+      item.style.fontSize = (16 + Math.random() * 12) + 'px';
+      container.appendChild(item);
+
+      setTimeout(() => {
+        item.remove();
+      }, 14000);
+    }
+    setInterval(createFloatingItem, 1200);
+
+    // BGM Control
+    const audio = document.getElementById('bgm');
+    const musicBtn = document.getElementById('musicToggle');
+    let isPlaying = false;
+
+    musicBtn.addEventListener('click', () => {
+      if (isPlaying) {
+        audio.pause();
+        musicBtn.classList.remove('playing');
+        musicBtn.innerText = '🎵';
+      } else {
+        audio.play().then(() => {
+          musicBtn.classList.add('playing');
+          musicBtn.innerText = '💖';
+        }).catch(() => {
+          alert('กรุณากดสัมผัสหน้าจออีกครั้งเพื่อเริ่มเล่นเพลงนะคะ ♡');
+        });
+      }
+      isPlaying = !isPlaying;
+    });
+
+    // Review Submit Function
+    function submitReview() {
+      const name = document.getElementById('reviewerName').value.trim();
+      const msg = document.getElementById('reviewerMsg').value.trim();
+
+      if (!name || !msg) {
+        alert('กรุณากรอกทั้งชื่อและความรู้สึกให้ครบถ้วนนะคะ ♡');
+        return;
+      }
+
+      const area = document.getElementById('reviewDisplayArea');
+      const newReview = document.createElement('div');
+      newReview.classList.add('review-bubble');
+      newReview.innerHTML = `
+        <div class="review-user">🤍 ${escapeHtml(name)}</div>
+        ${escapeHtml(msg)}
+      `;
+
+      area.prepend(newReview);
+
+      document.getElementById('reviewerName').value = '';
+      document.getElementById('reviewerMsg').value = '';
+      alert('ขอบคุณสำหรับรีวิวน่ารักๆ นะคะ 🎀');
+    }
+
+    function escapeHtml(string) {
+      return String(string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>
