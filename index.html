@@ -15,9 +15,9 @@
   <style>
     :root {
       --bg-color: #fff4f6;
-      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-bg: rgba(255, 255, 255, 0.96);
       --primary-pink: #f28b9f;
-      --border-color: #fcd7e0;
+      --border-color: #fbd6df;
       --text-main: #4a3e3d;
       --text-muted: #8e7c7e;
       --shadow: 0 10px 30px rgba(242, 139, 159, 0.16);
@@ -39,7 +39,7 @@
     }
 
     .container {
-      max-width: 460px;
+      max-width: 480px;
       margin: 0 auto;
       padding: 20px 16px 80px;
       position: relative;
@@ -49,22 +49,12 @@
     .header-card {
       background: var(--card-bg);
       backdrop-filter: blur(10px);
-      border-radius: 28px;
-      padding: 24px 18px;
+      border-radius: 30px;
+      padding: 24px 16px;
       box-shadow: var(--shadow);
       border: 1.5px solid var(--border-color);
       text-align: center;
       margin-bottom: 18px;
-    }
-
-    .profile-img {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3.5px solid #fff;
-      box-shadow: 0 4px 14px rgba(242, 139, 159, 0.2);
-      margin-bottom: 10px;
     }
 
     .store-name {
@@ -77,14 +67,14 @@
       font-size: 13.5px;
       color: var(--text-muted);
       margin-top: 6px;
-      line-height: 1.5;
+      line-height: 1.6;
       white-space: pre-line;
     }
 
     .nav-tabs {
       display: flex;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       margin-bottom: 16px;
       flex-wrap: wrap;
     }
@@ -238,11 +228,24 @@
       <p class="store-bio">welcome to babyfinch ♡</p>
     </div>
 
+    <!-- แถบเมนูครบทุกหน้า -->
     <div class="nav-tabs">
-      <button class="tab-btn active" onclick="switchTab('review')">Review</button>
+      <button class="tab-btn active" onclick="switchTab('home')">Home</button>
+      <button class="tab-btn" onclick="switchTab('review')">Review</button>
+      <button class="tab-btn" onclick="switchTab('contact')">Contact</button>
+      <button class="tab-btn" onclick="switchTab('details')">Details</button>
     </div>
 
-    <div class="content-card active" id="tab-review">
+    <!-- Home -->
+    <div class="content-card active" id="tab-home">
+      <h2 class="section-title">babyfinch ♡</h2>
+      <p style="font-size: 14px; line-height: 1.8; color: #6e5d65;">
+        ยินดีต้อนรับสู่ร้าน babyfinch ♡ สามารถเลือกดูรีวิวและติดต่อทางร้านได้ที่เมนูด้านบนเลยนะคะ
+      </p>
+    </div>
+
+    <!-- Review -->
+    <div class="content-card" id="tab-review">
       <h2 class="section-title">Reviews ♡</h2>
       
       <div id="reviewsList"></div>
@@ -265,6 +268,23 @@
         <button class="submit-btn" id="submitReviewBtn" onclick="submitReview()">Submit Review</button>
       </div>
     </div>
+
+    <!-- Contact -->
+    <div class="content-card" id="tab-contact">
+      <h2 class="section-title">Contact</h2>
+      <p style="font-size: 14px; line-height: 1.8; color: #6e5d65; text-align: center;">
+        ติดต่อสอบถามทางร้าน babyfinch ได้เลยนะคะ ♡
+      </p>
+    </div>
+
+    <!-- Details -->
+    <div class="content-card" id="tab-details">
+      <h2 class="section-title">Details</h2>
+      <p style="font-size: 14px; line-height: 1.8; color: #6e5d65;">
+        thank you for support na ♡
+      </p>
+    </div>
+
   </div>
 
   <script>
