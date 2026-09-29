@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard 🎀 babyfinch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,300;0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fffbfd;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --accent: #f6d5e1;
+      --accent-deep: #e8a7c1;
+      --text: #594a50;
+      --text-light: #94828a;
+      --danger: #ff85a1;
+      --shadow: 0 10px 30px rgba(232, 167, 193, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Mali', cursive;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 16px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 500px;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 28px;
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      border: 1.5px solid rgba(246, 213, 225, 0.7);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      color: #4a3b42;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .input-field, .textarea-field {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--accent);
+      border-radius: 16px;
+      font-size: 14px;
+      background: #fff;
+      color: var(--text);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .input-field:focus, .textarea-field:focus {
+      border-color: var(--accent-deep);
+      box-shadow: 0 0 0 3px rgba(232, 167, 193, 0.2);
+    }
+
+    .btn {
+      width: 100%;
+      background: var(--accent-deep);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 18px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 6px;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--accent-deep);
+      color: var(--accent-deep);
+      margin-top: 10px;
+    }
+
+    .btn-outline:hover {
+      background: #fff0f5;
+    }
+
+    .error-msg {
+      color: #e63946;
+      font-size: 13px;
+      text-align: center;
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* Dashboard Panels */
+    #dashboardPanel {
+      display: none;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1.5px dashed var(--accent);
+      padding-bottom: 14px;
+    }
+
+    .logout-btn {
+      background: #fff;
+      border: 1px solid var(--danger);
+      color: var(--danger);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .review-item {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(246, 213, 225, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .review-info {
+      flex: 1;
+    }
+
+    .del-btn {
+      background: #fff0f3;
+      border: 1px solid var(--danger);
+      color: var(--danger);
+      padding: 4px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. LOGIN CARD -->
+  <div class="card" id="loginCard">
+    <div class="header">
+      <h1 class="title">Admin Login 🎀</h1>
+      <p class="subtitle">ระบบจัดการหลังบ้าน babyfinch</p>
+    </div>
+
+    <form onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label>📧 อีเมลแอดมิน</label>
+        <input type="email" id="email" class="input-field" placeholder="ancharee09605@gmail.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>🔑 รหัสผ่าน</label>
+        <input type="password" id="password" class="input-field" placeholder="••••" required>
+      </div>
+
+      <button type="submit" class="btn">เข้าสู่ระบบ ✨</button>
+      <p id="errorMsg" class="error-msg">อีเมลหรือรหัสผ่านไม่ถูกต้องค่ะ 🥺</p>
+    </form>
+  </div>
+
+  <!-- 2. DASHBOARD CARD -->
+  <div class="card" id="dashboardPanel">
+    <div class="top-bar">
+      <div>
+        <h2 style="font-size: 18px; color: #4a3b42;">ยินดีต้อนรับ แอดมิน 👑</h2>
+        <span style="font-size: 12px; color: var(--text-light);" id="adminEmailBadge"></span>
+      </div>
+      <button class="logout-btn" onclick="logout()">ออกจากระบบ</button>
+    </div>
+
+    <!-- Add Review Form -->
+    <div style="background: #fff7fa; padding: 16px; border-radius: 20px; border: 1px solid var(--accent); margin-bottom: 20px;">
+      <h3 style="font-size: 14px; margin-bottom: 10px; color: #4a3b42;">เพิ่มรีวิวใหม่เข้าร้านค้า ✍️</h3>
+      <div class="form-group">
+        <input type="text" id="newReviewer" class="input-field" placeholder="ชื่อลูกค้า (เช่น คุณมินนี่ 🩰)">
+      </div>
+      <div class="form-group">
+        <textarea id="newComment" class="textarea-field" rows="2" placeholder="ข้อความรีวิว..."></textarea>
+      </div>
+      <button class="btn" onclick="addReviewFromAdmin()">+ เพิ่มรีวิว</button>
+    </div>
+
+    <!-- Review Management List -->
+    <h3 style="font-size: 15px; margin-bottom: 12px; color: #4a3b42;">จัดการรีวิวทั้งหมด 💌</h3>
+    <div id="adminReviewList"></div>
+
+    <a href="index.html" class="btn btn-outline" style="display: block; text-align: center; text-decoration: none; margin-top: 18px;">
+      ➜ ไปดูหน้าร้านจริง
+    </a>
+  </div>
+
+  <script>
+    // ตรวจสอบสถานะการเข้าสู่ระบบ
+    window.onload = function() {
+      if (sessionStorage.getItem('babyfinch_admin_logged') === 'true') {
+        showDashboard();
+      }
+      renderAdminReviews();
+    };
+
+    // ฟังก์ชันเข้าสู่ระบบ
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorMsg = document.getElementById('errorMsg');
+
+      // ตรวจสอบข้อมูลล็อกอิน
+      if (email === 'ancharee09605@gmail.com' && password === '4307') {
+        sessionStorage.setItem('babyfinch_admin_logged', 'true');
+        sessionStorage.setItem('babyfinch_admin_email', email);
+        showDashboard();
+      } else {
+        errorMsg.style.display = 'block';
+      }
+    }
+
+    function showDashboard() {
+      document.getElementById('loginCard').style.display = 'none';
+      document.getElementById('dashboardPanel').style.display = 'block';
+      document.getElementById('adminEmailBadge').textContent = sessionStorage.getItem('babyfinch_admin_email');
+      renderAdminReviews();
+    }
+
+    function logout() {
+      sessionStorage.removeItem('babyfinch_admin_logged');
+      sessionStorage.removeItem('babyfinch_admin_email');
+      document.getElementById('dashboardPanel').style.display = 'none';
+      document.getElementById('loginCard').style.display = 'block';
+      document.getElementById('errorMsg').style.display = 'none';
+    }
+
+    // จัดการข้อมูลรีวิว (LocalStorage)
+    function getReviews() {
+      return JSON.parse(localStorage.getItem('babyfinch_reviews') || '[]');
+    }
+
+    function saveReviews(reviews) {
+      localStorage.setItem('babyfinch_reviews', JSON.stringify(reviews));
+    }
+
+    function renderAdminReviews() {
+      const list = document.getElementById('adminReviewList');
+      const reviews = getReviews();
+
+      if (reviews.length === 0) {
+        list.innerHTML = '<p style="text-align:center; font-size:13px; color:var(--text-light); padding:10px;">ยังไม่มีรีวิวในระบบ</p>';
+        return;
+      }
+
+      list.innerHTML = reviews.map((r, i) => `
+        <div class="review-item">
+          <div class="review-info">
+            <strong style="font-size: 13px;">${r.name}</strong>
+            <p style="font-size: 12.5px; margin-top: 4px; color: #6e5d65;">${r.comment}</p>
+          </div>
+          <button class="del-btn" onclick="deleteReview(${i})">ลบ</button>
+        </div>
+      `).join('');
+    }
+
+    function addReviewFromAdmin() {
+      const name = document.getElementById('newReviewer').value.trim();
+      const comment = document.getElementById('newComment').value.trim();
+
+      if (!name || !comment) {
+        alert('กรุณากรอกข้อมูลให้ครบถ้วนค่ะ');
+        return;
+      }
+
+      const reviews = getReviews();
+      reviews.unshift({ name, comment });
+      saveReviews(reviews);
+
+      document.getElementById('newReviewer').value = '';
+      document.getElementById('newComment').value = '';
+      renderAdminReviews();
+      alert('เพิ่มรีวิวสำเร็จแล้วค่ะ 🎀');
+    }
+
+    function deleteReview(index) {
+      if (confirm('ต้องการลบรีวิวนี้ใช่หรือไม่?')) {
+        const reviews = getReviews();
+        reviews.splice(index, 1);
+        saveReviews(reviews);
+        renderAdminReviews();
+      }
+    }
+  </script>
+</body>
+</html>
