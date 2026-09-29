@@ -7,6 +7,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
   <style>
     :root {
       --bg-color: #fff4f6;
@@ -92,23 +97,6 @@
     }
 
     .input-pill:focus {
-      border-color: var(--primary-pink);
-      box-shadow: 0 0 0 3px rgba(238, 131, 153, 0.15);
-    }
-
-    .textarea-pill {
-      width: 100%;
-      border: 1.5px solid var(--border-color);
-      border-radius: 20px;
-      padding: 12px 18px;
-      font-size: 14px;
-      color: var(--text-main);
-      outline: none;
-      resize: vertical;
-      background: #fff;
-    }
-
-    .textarea-pill:focus {
       border-color: var(--primary-pink);
       box-shadow: 0 0 0 3px rgba(238, 131, 153, 0.15);
     }
@@ -229,66 +217,6 @@
       font-weight: 700;
       color: var(--text-main);
       margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .panel-card {
-      background: var(--card-bg);
-      border-radius: 28px;
-      padding: 22px;
-      box-shadow: var(--shadow);
-      margin-bottom: 24px;
-    }
-
-    .panel-subtitle {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .upload-area {
-      border: 1.5px dashed var(--border-color);
-      border-radius: 20px;
-      padding: 20px 12px;
-      text-align: center;
-      margin-bottom: 18px;
-      background: #fffbfa;
-    }
-
-    .upload-btn {
-      background: linear-gradient(135deg, #f29bb0, var(--primary-pink));
-      color: #fff;
-      border: none;
-      padding: 8px 20px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(238, 131, 153, 0.3);
-    }
-
-    .upload-hint {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 8px;
-    }
-
-    .preview-circle {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin: 0 auto 10px;
-      display: none;
-      border: 2px solid var(--primary-pink);
     }
 
     .review-card {
@@ -340,9 +268,6 @@
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
   </style>
 </head>
@@ -350,7 +275,6 @@
 
   <div class="container">
 
-    <!-- LOGIN VIEW -->
     <div id="loginView">
       <div class="login-card">
         <div class="bow-icon">🎀</div>
@@ -368,12 +292,11 @@
           </div>
 
           <button type="submit" class="btn-pink">เข้าสู่ระบบ ✨</button>
-          <p id="loginError" class="error-text">อีเมลหรือรหัสผ่านไม่ถูกต้องค่ะ 🥺</p>
+          <p id="loginError" class="error-text">อีเมลหรือรหัสผ่านไม่ถูกต้อง</p>
         </form>
       </div>
     </div>
 
-    <!-- DASHBOARD VIEW -->
     <div id="dashboardView">
       
       <div class="top-nav">
@@ -391,7 +314,7 @@
           <div class="stat-icon">💬</div>
           <div class="stat-number" id="totalReviewsCount">0</div>
           <div class="stat-label">Total Reviews</div>
-          <div class="stat-desc">Live from Storage</div>
+          <div class="stat-desc">Live from Cloud</div>
         </div>
         <div class="stat-card">
           <div class="stat-icon">⭐</div>
@@ -401,79 +324,7 @@
         </div>
       </div>
 
-      <div class="section-title">✏️️ Change Profiles</div>
-
-      <!-- Main Page Profile -->
-      <div class="panel-card">
-        <div class="panel-subtitle">🏠 Main Page Profile</div>
-        
-        <label style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px; display: block;">Profile Picture</label>
-        <div class="upload-area">
-          <img id="mainImgPreview" class="preview-circle">
-          <label class="upload-btn">
-            📷 Choose Image
-            <input type="file" accept="image/*" style="display: none;" onchange="previewImage(this, 'mainImgPreview')">
-          </label>
-          <div class="upload-hint">No image selected</div>
-        </div>
-
-        <div class="form-group">
-          <label>Name</label>
-          <input type="text" id="mainName" class="input-pill" placeholder="babyfinch ♡">
-        </div>
-
-        <div class="form-group">
-          <label>Bio</label>
-          <textarea id="mainBio" class="textarea-pill" rows="3" placeholder="ข้อความแนะนำร้านหน้าแรก..."></textarea>
-        </div>
-
-        <button type="button" class="btn-pink" onclick="saveMainProfile()">Save Main Profile ♡</button>
-      </div>
-
-      <!-- Contact Page Profile -->
-      <div class="panel-card">
-        <div class="panel-subtitle">💌 Contact Page Profile</div>
-
-        <label style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px; display: block;">Profile Picture</label>
-        <div class="upload-area">
-          <img id="contactImgPreview" class="preview-circle">
-          <label class="upload-btn">
-            📷 Choose Image
-            <input type="file" accept="image/*" style="display: none;" onchange="previewImage(this, 'contactImgPreview')">
-          </label>
-          <div class="upload-hint">No image selected</div>
-        </div>
-
-        <div class="form-group">
-          <label>Name</label>
-          <input type="text" id="contactName" class="input-pill" placeholder="babyfinch ♡">
-        </div>
-
-        <div class="form-group">
-          <label>Username</label>
-          <input type="text" id="contactUsername" class="input-pill" placeholder="@babyfinch">
-        </div>
-
-        <div class="form-group">
-          <label>Bio</label>
-          <textarea id="contactBio" class="textarea-pill" rows="3" placeholder="Contact profile bio..."></textarea>
-        </div>
-
-        <div class="form-group">
-          <label>Followers</label>
-          <input type="text" id="contactFollowers" class="input-pill" placeholder="0">
-        </div>
-
-        <div class="form-group">
-          <label>Following</label>
-          <input type="text" id="contactFollowing" class="input-pill" placeholder="0">
-        </div>
-
-        <button type="button" class="btn-pink" onclick="saveContactProfile()">Save Contact Profile ♡</button>
-      </div>
-
-      <!-- Delete Reviews -->
-      <div class="section-title">🗑️ Delete Reviews</div>
+      <div class="section-title">Delete Reviews</div>
       <div id="reviewsContainer"></div>
 
     </div>
@@ -484,13 +335,21 @@
     const AUTH_EMAIL = "ancharee09605@gmail.com";
     const AUTH_PASS = "4307";
 
-    const DEFAULT_REVIEWS = [
-      { id: 1, name: "คุณมินนี่ 🩰", stars: 5, comment: "สินค้าน่ารักมากกก แพ็กของมาเรียบร้อยค่ะ", time: "รีวิวเมื่อเร็วๆ นี้" },
-      { id: 2, name: "คุณพราว 🎀", stars: 5, comment: "จัดส่งไว แม่ค้าน่ารักตอบแชทเร็วมาก", time: "รีวิวเมื่อเร็วๆ นี้" }
-    ];
+    const firebaseConfig = {
+      apiKey: "AIzaSyA1rAxaAY0wN1xiWU5Co0X1_Js-wtTUX08",
+      authDomain: "babyfinch-7bfb4.firebaseapp.com",
+      projectId: "babyfinch-7bfb4",
+      storageBucket: "babyfinch-7bfb4.firebasestorage.app",
+      messagingSenderId: "666957156675",
+      appId: "1:666957156675:web:5444ec35b013da1d135ff6",
+      measurementId: "G-P2XW8DXDMZ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
     window.onload = function() {
-      if (sessionStorage.getItem('isAdminAuth') === 'true') {
+      if (sessionStorage.getItem('babyfinch_admin_logged') === 'true') {
         showDashboard();
       }
     };
@@ -502,7 +361,7 @@
       const err = document.getElementById('loginError');
 
       if (email === AUTH_EMAIL && pass === AUTH_PASS) {
-        sessionStorage.setItem('isAdminAuth', 'true');
+        sessionStorage.setItem('babyfinch_admin_logged', 'true');
         err.style.display = 'none';
         showDashboard();
       } else {
@@ -511,7 +370,7 @@
     }
 
     function handleLogout() {
-      sessionStorage.removeItem('isAdminAuth');
+      sessionStorage.removeItem('babyfinch_admin_logged');
       document.getElementById('dashboardView').style.display = 'none';
       document.getElementById('loginView').style.display = 'flex';
     }
@@ -519,111 +378,53 @@
     function showDashboard() {
       document.getElementById('loginView').style.display = 'none';
       document.getElementById('dashboardView').style.display = 'block';
-      loadStatsAndReviews();
-      loadSavedProfiles();
+      listenToReviewsAdmin();
     }
 
-    function getReviews() {
-      const stored = localStorage.getItem('babyfinch_reviews');
-      return stored ? JSON.parse(stored) : DEFAULT_REVIEWS;
+    function listenToReviewsAdmin() {
+      db.collection("babyfinch_reviews")
+        .orderBy("createdAt", "desc")
+        .onSnapshot(snapshot => {
+          document.getElementById('totalReviewsCount').textContent = snapshot.size;
+
+          let totalStars = 0;
+          const container = document.getElementById('reviewsContainer');
+
+          if (snapshot.empty) {
+            container.innerHTML = '<p style="text-align: center; color: var(--text-muted); font-size: 13px;">No reviews</p>';
+            document.getElementById('totalStarsCount').textContent = '0';
+            return;
+          }
+
+          let html = '';
+          snapshot.forEach(doc => {
+            const r = doc.data();
+            totalStars += (r.stars || 5);
+            html += `
+              <div class="review-card">
+                <div class="review-left">
+                  <div class="review-author">${r.name}</div>
+                  <div class="review-stars">${'★'.repeat(r.stars || 5)}</div>
+                  <div class="review-comment">${r.comment}</div>
+                  <div class="review-time">${r.time || ''}</div>
+                </div>
+                <button class="btn-delete" onclick="deleteReview('${doc.id}')">
+                  Delete
+                </button>
+              </div>
+            `;
+          });
+
+          document.getElementById('totalStarsCount').textContent = totalStars;
+          container.innerHTML = html;
+        });
     }
 
-    function setReviews(revs) {
-      localStorage.setItem('babyfinch_reviews', JSON.stringify(revs));
-      loadStatsAndReviews();
-    }
-
-    function loadStatsAndReviews() {
-      const reviews = getReviews();
-      document.getElementById('totalReviewsCount').textContent = reviews.length;
-      
-      const totalStars = reviews.reduce((sum, r) => sum + (r.stars || 5), 0);
-      document.getElementById('totalStarsCount').textContent = totalStars;
-
-      const container = document.getElementById('reviewsContainer');
-      if (reviews.length === 0) {
-        container.innerHTML = '<p style="text-align: center; color: var(--text-muted); font-size: 13px;">ไม่มีรีวิวในระบบ</p>';
-        return;
-      }
-
-      container.innerHTML = reviews.map((r, idx) => `
-        <div class="review-card">
-          <div class="review-left">
-            <div class="review-author">${r.name}</div>
-            <div class="review-stars">${'★'.repeat(r.stars || 5)}</div>
-            <div class="review-comment">${r.comment}</div>
-            <div class="review-time">${r.time || 'รีวิวเมื่อเร็วๆ นี้'}</div>
-          </div>
-          <button class="btn-delete" onclick="deleteReview(${idx})">
-            Delete 🗑️
-          </button>
-        </div>
-      `).join('');
-    }
-
-    function deleteReview(idx) {
-      if (confirm('คุณต้องการลบรีวิวนี้ใช่หรือไม่? 🗑️')) {
-        const reviews = getReviews();
-        reviews.splice(idx, 1);
-        setReviews(reviews);
-      }
-    }
-
-    function previewImage(input, previewId) {
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const img = document.getElementById(previewId);
-          img.src = e.target.result;
-          img.style.display = 'block';
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-
-    function saveMainProfile() {
-      const data = {
-        name: document.getElementById('mainName').value,
-        bio: document.getElementById('mainBio').value,
-        img: document.getElementById('mainImgPreview').src
-      };
-      localStorage.setItem('babyfinch_main_profile', JSON.stringify(data));
-      alert('บันทึก Main Page Profile เรียบร้อยแล้วค่ะ ♡');
-    }
-
-    function saveContactProfile() {
-      const data = {
-        name: document.getElementById('contactName').value,
-        username: document.getElementById('contactUsername').value,
-        bio: document.getElementById('contactBio').value,
-        followers: document.getElementById('contactFollowers').value,
-        following: document.getElementById('contactFollowing').value,
-        img: document.getElementById('contactImgPreview').src
-      };
-      localStorage.setItem('babyfinch_contact_profile', JSON.stringify(data));
-      alert('บันทึก Contact Page Profile เรียบร้อยแล้วค่ะ ♡');
-    }
-
-    function loadSavedProfiles() {
-      const main = JSON.parse(localStorage.getItem('babyfinch_main_profile') || '{}');
-      if (main.name) document.getElementById('mainName').value = main.name;
-      if (main.bio) document.getElementById('mainBio').value = main.bio;
-      if (main.img) {
-        const img = document.getElementById('mainImgPreview');
-        img.src = main.img;
-        img.style.display = 'block';
-      }
-
-      const contact = JSON.parse(localStorage.getItem('babyfinch_contact_profile') || '{}');
-      if (contact.name) document.getElementById('contactName').value = contact.name;
-      if (contact.username) document.getElementById('contactUsername').value = contact.username;
-      if (contact.bio) document.getElementById('contactBio').value = contact.bio;
-      if (contact.followers) document.getElementById('contactFollowers').value = contact.followers;
-      if (contact.following) document.getElementById('contactFollowing').value = contact.following;
-      if (contact.img) {
-        const img = document.getElementById('contactImgPreview');
-        img.src = contact.img;
-        img.style.display = 'block';
+    async function deleteReview(docId) {
+      try {
+        await db.collection("babyfinch_reviews").doc(docId).delete();
+      } catch (e) {
+        console.error("Error deleting document: ", e);
       }
     }
   </script>
