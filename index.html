@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>babyfinch ♡</title>
+  <title>babyfinch '</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
 
   <style>
     :root {
-      --bg-color: #fff4f6;
+      --bg-color: #fff5f7;
       --card-bg: rgba(255, 255, 255, 0.96);
       --primary-pink: #f28b9f;
       --border-color: #fbd6df;
@@ -38,6 +38,32 @@
       position: relative;
     }
 
+    .floating-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .float-item {
+      position: absolute;
+      bottom: -50px;
+      font-size: 24px;
+      animation: floatUp 10s linear infinite;
+      opacity: 0.75;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      15% { opacity: 0.85; }
+      85% { opacity: 0.85; }
+      100% { transform: translateY(-115vh) rotate(360deg); opacity: 0; }
+    }
+
     .container {
       max-width: 480px;
       margin: 0 auto;
@@ -50,17 +76,39 @@
       background: var(--card-bg);
       backdrop-filter: blur(10px);
       border-radius: 30px;
-      padding: 24px 16px;
+      padding: 16px 16px 24px;
       box-shadow: var(--shadow);
       border: 1.5px solid var(--border-color);
       text-align: center;
       margin-bottom: 18px;
     }
 
+    .banner-img {
+      width: 100%;
+      height: 150px;
+      border-radius: 20px;
+      object-fit: cover;
+      margin-bottom: -46px;
+      border: 2px solid #fff;
+    }
+
+    .profile-img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #fff;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 2;
+      background: #fff;
+    }
+
     .store-name {
       font-size: 24px;
       font-weight: 700;
       color: var(--primary-pink);
+      margin-top: 10px;
     }
 
     .store-bio {
@@ -69,6 +117,25 @@
       margin-top: 6px;
       line-height: 1.6;
       white-space: pre-line;
+    }
+
+    .music-btn {
+      margin-top: 14px;
+      background: #fff;
+      border: 1.5px solid var(--primary-pink);
+      color: var(--primary-pink);
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    .music-btn:hover {
+      background: var(--primary-pink);
+      color: #fff;
     }
 
     .nav-tabs {
@@ -123,6 +190,65 @@
       font-weight: 700;
       color: var(--primary-pink);
       margin-bottom: 14px;
+    }
+
+    .contact-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      text-align: center;
+      white-space: pre-line;
+    }
+
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: #fff;
+      border-radius: 18px;
+      border: 1.5px solid var(--border-color);
+      text-decoration: none;
+      color: var(--text-main);
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .link-item:hover {
+      transform: translateY(-2px);
+      background: #fff7fa;
+      border-color: var(--primary-pink);
+    }
+
+    .detail-desc {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #6e5d65;
+      background: #fff;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 16px;
+      white-space: pre-line;
+    }
+
+    .thankyou-box {
+      text-align: center;
+      background: #fff0f3;
+      border: 1.5px dashed var(--primary-pink);
+      border-radius: 18px;
+      padding: 16px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary-pink);
     }
 
     .review-box {
@@ -222,13 +348,20 @@
 </head>
 <body>
 
+  <div class="floating-container" id="emojiContainer"></div>
+
+  <audio id="bgMusic" loop src="https://files.catbox.moe/gqizpa.mp3"></audio>
+
   <div class="container">
     <div class="header-card">
-      <h1 class="store-name">babyfinch ♡</h1>
-      <p class="store-bio">welcome to babyfinch ♡</p>
+      <img src="https://i.postimg.cc/26YfhPc1/CA378830-D049-4F10-B91D-83E369F619D9.gif" alt="Banner" class="banner-img">
+      <img src="https://i.ibb.co/gZg1bdv9/IMG-3203.jpg" alt="Profile" class="profile-img">
+      <h1 class="store-name">babyfinch '</h1>
+      <p class="store-bio">welcome to babyfinch ♡݁
+ขอบคุณที่กดเข้ามาคับ</p>
+      <button class="music-btn" id="musicToggle">Play Music</button>
     </div>
 
-    <!-- แถบเมนูครบทุกหน้า -->
     <div class="nav-tabs">
       <button class="tab-btn active" onclick="switchTab('home')">Home</button>
       <button class="tab-btn" onclick="switchTab('review')">Review</button>
@@ -236,17 +369,14 @@
       <button class="tab-btn" onclick="switchTab('details')">Details</button>
     </div>
 
-    <!-- Home -->
     <div class="content-card active" id="tab-home">
-      <h2 class="section-title">babyfinch ♡</h2>
-      <p style="font-size: 14px; line-height: 1.8; color: #6e5d65;">
-        ยินดีต้อนรับสู่ร้าน babyfinch ♡ สามารถเลือกดูรีวิวและติดต่อทางร้านได้ที่เมนูด้านบนเลยนะคะ
-      </p>
+      <h2 class="section-title">babyfinch '</h2>
+      <p style="font-size: 14px; line-height: 1.8; color: #6e5d65; white-space: pre-line;">welcome to babyfinch ♡݁
+ขอบคุณที่กดเข้ามาคับ</p>
     </div>
 
-    <!-- Review -->
     <div class="content-card" id="tab-review">
-      <h2 class="section-title">Reviews ♡</h2>
+      <h2 class="section-title">review babyfinch</h2>
       
       <div id="reviewsList"></div>
 
@@ -260,29 +390,46 @@
         </div>
 
         <div class="form-group">
-          <input type="text" class="input-field" id="reviewerName" placeholder="Name">
+          <input type="text" class="input-field" id="reviewerName" placeholder="ชื่อที่ลูกค้าอยากให้แสดงค่ะ">
         </div>
         <div class="form-group">
-          <textarea class="textarea-field" id="reviewComment" rows="3" placeholder="เขียนรีวิวที่นี่..."></textarea>
+          <textarea class="textarea-field" id="reviewComment" rows="3" placeholder="ตรงนี้เป็นความรู้สึกของลูกค้าค่ะ"></textarea>
         </div>
-        <button class="submit-btn" id="submitReviewBtn" onclick="submitReview()">Submit Review</button>
+        <button class="submit-btn" id="submitReviewBtn" onclick="submitReview()">Submit</button>
       </div>
     </div>
 
-    <!-- Contact -->
     <div class="content-card" id="tab-contact">
       <h2 class="section-title">Contact</h2>
-      <p style="font-size: 14px; line-height: 1.8; color: #6e5d65; text-align: center;">
-        ติดต่อสอบถามทางร้าน babyfinch ได้เลยนะคะ ♡
-      </p>
+      <p class="contact-desc">Contact me ♡
+ติดต่อสอบถามได้ทางช่องทางนี้เลย ย</p>
+      
+      <div class="link-list">
+        <a href="https://lin.ee/wi39T1c" target="_blank" class="link-item">
+          <span>Line official Account 💚</span>
+          <span>➜</span>
+        </a>
+        <a href="https://www.facebook.com/share/19JMDy8bzi/" target="_blank" class="link-item">
+          <span>Facebook 🩵</span>
+          <span>➜</span>
+        </a>
+        <a href="https://www.instagram.com/m3uzxe?stkn=eXNjMjk5bnFiN3Y1" target="_blank" class="link-item">
+          <span>Instagram 🧡</span>
+          <span>➜</span>
+        </a>
+      </div>
     </div>
 
-    <!-- Details -->
     <div class="content-card" id="tab-details">
       <h2 class="section-title">Details</h2>
-      <p style="font-size: 14px; line-height: 1.8; color: #6e5d65;">
-        thank you for support na ♡
-      </p>
+      <div class="detail-desc">open -close ตามเวลาตื่นหรือว่าง
+หากไม่ตอบ ไม่ตอบเกิน 3-5 นาที ทักซ้ำได้เลยค่ะ
+การใข้งาน ยกเลิกไม่คืนเงินค่ะ
+การชำระเงิน บัญชีต่างๆที่ส่งไป ชื่ออัญชรี เบาสูงเนิน เท่านั้นค่ะ</div>
+
+      <div class="thankyou-box">
+        ขอบคุณที่มาอุดหนุนค่ะ ありがとう🤍
+      </div>
     </div>
 
   </div>
@@ -322,6 +469,33 @@
       event.target.classList.add('active');
       document.getElementById('tab-' + tabName).classList.add('active');
     }
+
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicToggle');
+    musicBtn.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        musicBtn.textContent = 'Pause Music';
+      } else {
+        music.pause();
+        musicBtn.textContent = 'Play Music';
+      }
+    });
+
+    const icons = ['🐰', '🩹', '☁️', '🤍', '🍥'];
+    const container = document.getElementById('emojiContainer');
+
+    function createFloatingIcon() {
+      const el = document.createElement('div');
+      el.className = 'float-item';
+      el.textContent = icons[Math.floor(Math.random() * icons.length)];
+      el.style.left = Math.random() * 92 + 'vw';
+      el.style.animationDuration = (8 + Math.random() * 5) + 's';
+      container.appendChild(el);
+
+      setTimeout(() => { el.remove(); }, 13000);
+    }
+    setInterval(createFloatingIcon, 1300);
 
     function listenToReviews() {
       db.collection("babyfinch_reviews")
